@@ -20,3 +20,4 @@ The "discord_token" is required as it gives the program a connection to a Discor
 
 The Discord bot contains various commands that can be seen by typing $help in a chat with the bot.
 
+![pami_help](https://user-images.githubusercontent.com/82501158/117412068-51042480-aee2-11eb-8420-15b981dc6072.png)
