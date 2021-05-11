@@ -4,7 +4,7 @@ This is a Discord bot that is written in Python and is currently hosted on Herok
 
 # requirements.txt
 
-This Discord bot utilizes many libraries that are found in the requirements.txt file. Specific versions are included with all the libraries so the user knows which version to download in the event that there are major changes the later versions of the libraries. This program also requires the user to install the ffmpeg library to be installed and cannot be installed directly using "pip". Instructions on how to install the ffmpeg library is found at https://www.wikihow.com/Install-FFmpeg-on-Windows.
+This Discord bot utilizes many libraries that are found in the requirements.txt file. Specific versions are included with all the libraries so the user knows which version to download in the event that there are major changes in later versions of the libraries. This program also requires the user to install the ffmpeg library to play audio and cannot be installed directly using "pip". Instructions on how to install the ffmpeg library is found at https://www.wikihow.com/Install-FFmpeg-on-Windows.
 
 # discordTokens.env
 
@@ -20,3 +20,4 @@ The "discord_token" is required as it gives the program a connection to a Discor
 
 The Discord bot contains various commands that can be seen by typing $help in a chat with the bot.
 
+![pami_help](https://user-images.githubusercontent.com/82501158/117412068-51042480-aee2-11eb-8420-15b981dc6072.png)
