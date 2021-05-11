@@ -304,21 +304,27 @@ async def trivia(ctx):
             questionsArray.append(decodedIncorrectQuestions)
         random.shuffle(questionsArray)
 
+        questionAlphabet = 97
+
         individualQuestionsString = ""
         for individualQuestions in questionsArray:
-            individualQuestionsString += f'{individualQuestions}\n' 
+            individualQuestionsString += f'{chr(questionAlphabet)}) {individualQuestions}\n' 
+            questionAlphabet = questionAlphabet + 1
 
-        questionInformation += f'Type: {questionType}\nCategory: {questionCategory}\nDifficulty: {questionDifficulty}\nQuestion: {question}\n\nAnswers: \n{individualQuestionsString}\nPlease type your answer in the chat:'
+        questionInformation += f'Type: {questionType}\nCategory: {questionCategory}\nDifficulty: {questionDifficulty}\nQuestion: {question}\n\nAnswers: \n{individualQuestionsString}\nPlease type your answer(a/b/c/d) in the chat:'
         embedVar = discord.Embed(title='Trivia', description=questionInformation, color=0xFFA500)
         await ctx.channel.send(embed=embedVar)
 
-        # Ensures the author that initially started the trivia, is the one answering so other user messages aren't taken into account
+        # Ensures the author that initially started the trivia, is the one answering so other user messages aren't taken into account and they answer with 'a', 'b', 'c' or 'd'
         def check(m):
-            return m.author == ctx.author
+            return m.author == ctx.author and (m.content.lower() == 'a' or m.content.lower() == 'b' or m.content.lower() == 'c' or m.content.lower() == 'd')
 
-        # Gets the users answer and checks if the got the correct answer
+        # Gets the users answer based off their letter input
         userAnswer = await bot.wait_for('message', check=check)
-        if userAnswer.content.lower() == questionAnswer.lower():
+        answerValue = questionsArray[ord(userAnswer.content.lower())-97]
+
+        # Checks if the users answer is correct
+        if answerValue.lower() == questionAnswer.lower():
             embedVar = discord.Embed(description=f'You chose the correct answer {mention}', color=0xFFA500)
             await ctx.channel.send(embed=embedVar)
         else:
@@ -328,17 +334,25 @@ async def trivia(ctx):
     else:
         questionType = 'True or False'
 
-        questionInformation += f'Type:{questionType}\nCategory: {questionCategory}\nDifficulty: {questionDifficulty}\nQuestion: {question}\n\nAnswers: \nTrue\nFalse\n\nPlease type your in the chat:'
+        questionInformation += f'Type:{questionType}\nCategory: {questionCategory}\nDifficulty: {questionDifficulty}\nQuestion: {question}\n\nAnswers: \na) True\nb) False\n\nPlease type your answer(a/b) in the chat:'
         embedVar = discord.Embed(title='Trivia', description=questionInformation, color=0xFFA500)
         await ctx.channel.send(embed=embedVar)
 
         # Ensures the author that initially started the trivia, is the one answering so other user messages aren't taken into account
         def check(m):
-            return m.author == ctx.author
+            return m.author == ctx.author and (m.content.lower() == 'a' or m.content.lower() == 'b')
 
-        # Gets the users answer and checks if the answer is correct
+        # Gets the users answer 
         userAnswer = await bot.wait_for('message', check=check)
-        if userAnswer.content.lower() == questionAnswer.lower():
+
+        # Converts the users alphabetical answer to True or False
+        if userAnswer.content.lower() == 'a':
+            userAnswer = "True"
+        elif userAnswer.content.lower() == 'b':
+            userAnswer = "False"
+
+        # Checks if the users answers is correct
+        if userAnswer.lower() == questionAnswer.lower():
             embedVar = discord.Embed(description=f'You chose the correct answer {mention}', color=0XFFA500)
             await ctx.channel.send(embed=embedVar)
         else:
@@ -423,8 +437,8 @@ async def play(ctx, *, url=None):
                 FFMPEG_OPTIONS = {'before_options': '-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5', 'options': '-vn'}
                 ydl_opts = {'format': 'bestaudio'}
 
-                # Checks if the user entered a url or key words
-                if url[0:4] == 'http':
+                # Checks if the user entered a youtube url or key words
+                if url.startswith('https://www.youtube'):
                     with youtube_dl.YoutubeDL(ydl_opts) as ydl:
                         try:
                             info = ydl.extract_info(url, download=False)
@@ -462,7 +476,6 @@ async def play(ctx, *, url=None):
         except ValueError:
             embedVar = discord.Embed(description=f'You must be in the channel {mention}', color=0x3e7ada)
             await ctx.channel.send(embed=embedVar)
-
 
 # Function to hold a music queue and play music until the queue is empty
 songQueue = []
