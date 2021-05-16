@@ -1,6 +1,6 @@
 # Pami Bot
 
-This is a Discord bot that is written in Python version 3.9.4 and is currently hosted on Heroku servers for 24/7 service of the bot. Discord.py is the primary library that gives the bot various features ranging from trivia games to playing music in the voice channel. The bot utilizes many libraries that are included in the requirements.txt. It also has a few keys found in the "discordTokens.env" file that must be collected by the user before running the bot. All the code is written in the pami.py file and calls on the discordTokens.env so those tokens must be filled out before running the program.
+Discord bot that is written in Python version 3.9.4 and is currently hosted on Heroku servers for 24/7 service of the bot. Discord.py is the primary library that gives the bot various features ranging from trivia games to playing music in the voice channel. The bot utilizes many libraries that are included in the requirements.txt. It also has a few keys found in the "discordTokens.env" file that must be collected by the user before running the bot. All the code is written in the pami.py file and calls on the discordTokens.env so those tokens must be filled out before running the program.
 
 # requirements.txt
 
