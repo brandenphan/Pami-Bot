@@ -298,7 +298,8 @@ async def trivia(ctx):
         questionsArray = []
 
         # Gets all the possible answers in an array and randomizes the array
-        questionsArray.append(triviaResponseInformation['correct_answer'])
+        decodedCorrectAnswer = html.unescape(triviaResponseInformation['correct_answer'])
+        questionsArray.append(decodedCorrectAnswer)
         for incorrectQuestions in triviaResponseInformation['incorrect_answers']:
             decodedIncorrectQuestions = html.unescape(incorrectQuestions)
             questionsArray.append(decodedIncorrectQuestions)
@@ -311,7 +312,7 @@ async def trivia(ctx):
             individualQuestionsString += f'{chr(questionAlphabet)}) {individualQuestions}\n' 
             questionAlphabet = questionAlphabet + 1
 
-        questionInformation += f'Type: {questionType}\nCategory: {questionCategory}\nDifficulty: {questionDifficulty}\nQuestion: {question}\n\nAnswers: \n{individualQuestionsString}\nPlease type your answer(a/b/c/d) in the chat:'
+        questionInformation += f'{mention}\n\nType: {questionType}\nCategory: {questionCategory}\nDifficulty: {questionDifficulty}\nQuestion: {question}\n\nAnswers: \n{individualQuestionsString}\nPlease type your answer(a/b/c/d) in the chat:'
         embedVar = discord.Embed(title='Trivia', description=questionInformation, color=0xFFA500)
         await ctx.channel.send(embed=embedVar)
 
@@ -334,7 +335,7 @@ async def trivia(ctx):
     else:
         questionType = 'True or False'
 
-        questionInformation += f'Type:{questionType}\nCategory: {questionCategory}\nDifficulty: {questionDifficulty}\nQuestion: {question}\n\nAnswers: \na) True\nb) False\n\nPlease type your answer(a/b) in the chat:'
+        questionInformation += f'{mention}\n\nType:{questionType}\nCategory: {questionCategory}\nDifficulty: {questionDifficulty}\nQuestion: {question}\n\nAnswers: \na) True\nb) False\n\nPlease type your answer(a/b) in the chat:'
         embedVar = discord.Embed(title='Trivia', description=questionInformation, color=0xFFA500)
         await ctx.channel.send(embed=embedVar)
 
