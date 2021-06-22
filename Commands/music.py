@@ -103,7 +103,7 @@ class musicCommands(commands.Cog):
                                 info = ydl.extract_info(url, download=False)
                                 URL = info['formats'][0]['url']
                             except:
-                                embedVar = discord.Embed(description=f'Could\'nt play {songTitle} {mention}', color=0xe37ada)
+                                embedVar = discord.Embed(description=f'Could\'nt play {url} {mention}', color=0xe37ada)
                                 await ctx.channel.send(embed=embedVar)
                     else:
                         with youtube_dl.YoutubeDL(ydl_opts) as ydl:
@@ -111,7 +111,7 @@ class musicCommands(commands.Cog):
                                 info = ydl.extract_info(f'ytsearch:{url}', download=False)['entries'][0]
                                 URL = info['formats'][0]['url']
                             except:
-                                embedVar = discord.Embed(description=f'Could\'nt play {songTitle} {mention}', color=0xe37ada)
+                                embedVar = discord.Embed(description=f'Could\'nt play song {mention}', color=0xe37ada)
                                 await ctx.channel.send(embed=embedVar)                          
                     try:
                         # Checks if there is currently a song playing, adds to queue if so
